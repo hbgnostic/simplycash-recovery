@@ -10,6 +10,7 @@ import { ask, askSeed, fullScan, keyAt, sats, checkAddress, woc, closeInput } fr
 
 const FEE_SATS_PER_KB = Number(process.env.FEE_SATS_PER_KB || 150) // network minimum is 100 as of 2026-10
 const ARC_URL = 'https://arc.gorillapool.io'
+const TEST_RECORD = 'test-send.json' // where the last successful test send went (address + txid, no keys)
 
 // True once ARC or WhatsOnChain reports knowing this txid. Retries for ~15s while it propagates.
 async function onNetwork (txid) {
@@ -66,6 +67,25 @@ try {
     amount = Number(amountIn)
     if (!Number.isInteger(amount) || amount < 1) throw new Error(`"${amountIn}" is not a whole number of satoshis.`)
     if (amount > available - 1000) throw new Error(`That is more than is available after fees. For everything, type ALL.`)
+  }
+
+  // 3b. Sweeping everything: it should go where a test send already proved it works.
+  if (sweepAll) {
+    let prev = null
+    try { prev = JSON.parse(fs.readFileSync(TEST_RECORD, 'utf8')) } catch {}
+    if (!prev) {
+      console.log('\nThere is no test send from this folder yet. The guide strongly recommends a small test first.')
+      const a = await ask('Type SKIP TEST to send everything without a test, or anything else to stop: ')
+      if (a.toUpperCase() !== 'SKIP TEST') throw new Error('Nothing was sent. Do a small test send first (see the guide), then come back for ALL.')
+    } else if (prev.address !== dest) {
+      console.log('\nWARNING: this is NOT the address your test send went to.')
+      console.log(`  Test send went to:   ${prev.address}`)
+      console.log(`  This sweep would go: ${dest}`)
+      const a = await ask('Type DIFFERENT to send everything to the new address anyway, or anything else to stop: ')
+      if (a.toUpperCase() !== 'DIFFERENT') throw new Error('Nothing was sent. Work out which address is right, then run sweep again.')
+    } else {
+      console.log(`\nSame address your test send went to (transaction ${prev.txid.slice(0, 12)}...). Good.`)
+    }
   }
 
   // 4. Choose inputs. Test: biggest outputs first, just enough. All: every spendable output.
@@ -150,6 +170,10 @@ try {
           `Keep the file ${record}, wait a few minutes, then search for ${txid} on whatsonchain.com. ARC: ${why}. WhatsOnChain: ${wocErr || 'no error'}`)
       }
     }
+  }
+
+  if (!sweepAll) {
+    fs.writeFileSync(TEST_RECORD, JSON.stringify({ address: dest, txid, satoshis: toDest, at: new Date().toISOString() }, null, 2))
   }
 
   console.log('\nBroadcast OK (confirmed the network has it).')

@@ -19,6 +19,17 @@ Simply Cash stopped being developed in August 2020. The last version was 0.0.99.
 - **Nobody will ever need your 12 words to help you.** No genuine helper will ask for them: not a friend, not a support person, not the author of these scripts. If you get stuck, share what is on the screen instead. The programs never display your words, so the screen is always safe to share.
 - When you type your 12 words, **nothing appears on the screen** (or a row of stars). That is on purpose.
 
+## What the scripts can't do for you
+
+If you follow the steps, you're already covered for most of this. These are the few things only you can control:
+
+- **Make sure the address is really yours.** The scripts catch typos, but not a valid address that belongs to someone else. That's what the small test send is for: if it arrives, the address is right.
+- **Send to a BSV wallet you control.** Bitcoin (BTC) addresses also start with "1", and exchange deposit addresses don't always accept BSV. Don't use either.
+- **Keep your 12 words to yourself.** No screen shares, photos, chat messages, AI chatbots, or helpers.
+- **Use a computer you trust.** Malware already on a computer can see what you type.
+- **Get the scripts from the original source:** github.com/hbgnostic/simplycash-recovery.
+- **Write down your new wallet's backup** before you sweep.
+
 ## What you need
 
 - Your 12 words, written down.
@@ -148,7 +159,7 @@ Once the test has arrived:
 node sweep.mjs
 ```
 
-Same steps as before, but when it asks for the **amount, type `ALL`**.
+Same steps as before, but when it asks for the **amount, type `ALL`**. The script checks that you're sending to the same address your test went to. If you aren't, it warns you and stops unless you type `DIFFERENT`.
 
 On the review screen, check that:
 

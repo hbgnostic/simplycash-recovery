@@ -9,6 +9,7 @@ make-zip.sh
 
 # local run outputs: receipts hold destination addresses, scan results list your addresses
 sweep-*.txt
+test-send.json
 scan-results.json
 
 # never commit a seed, even a throwaway
