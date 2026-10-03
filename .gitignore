@@ -1,0 +1,15 @@
+node_modules/
+dev/node_modules/
+dev/package-lock.json
+
+# rendered exports and the hand-off zip (sources are the .md files)
+*.pdf
+*.zip
+make-zip.sh
+
+# local run outputs: receipts hold destination addresses, scan results list your addresses
+sweep-*.txt
+scan-results.json
+
+# never commit a seed, even a throwaway
+dev/practice-wallet.txt

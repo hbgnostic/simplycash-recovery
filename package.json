@@ -1,0 +1,14 @@
+{
+  "name": "simplycash-recovery",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Scan and sweep BSV from a Simply Cash 12-word seed",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "scan": "node scan.mjs",
+    "sweep": "node sweep.mjs"
+  },
+  "dependencies": {
+    "@bsv/sdk": "2.8.11"
+  }
+}
