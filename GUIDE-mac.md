@@ -4,7 +4,7 @@ A step-by-step guide for Mac, using VS Code. Take it slowly. Nothing here is urg
 
 ## What happened to Simply Cash
 
-Simply Cash stopped being developed in August 2020. The last version was 0.0.99. Its website is still up, but the server the app talks to (to load balances and send payments) is offline. That is why the app no longer works.
+Simply Cash stopped being developed in August 2020. The last version was 0.0.99. The app needs its own server to load balances and send payments. On 2026-10-02 that server was offline, so the app could not do either. On 2026-10-31 it was accepting connections again. This guide does not use that server, so it works either way.
 
 **Your coins were never inside the app.** They sit at addresses on the BSV blockchain, and your 12 words are the only key to those addresses. The app was only a window onto them. These two small programs do the job the app used to do:
 

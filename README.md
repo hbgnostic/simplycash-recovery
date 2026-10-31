@@ -14,7 +14,7 @@ Two small Node.js scripts run on your own computer. Your 12 words never leave it
 
 ## What happened to Simply Cash
 
-Simply Cash was a mobile wallet that began as a Bitcoin Cash wallet and became BSV-only in late 2018. Development stopped in August 2020 (last version 0.0.99). The app depended on its own server (`ws.simply.cash`), which no longer responds, so the app can't load balances or send. The coins were never inside the app. They are on the BSV blockchain, and the 12 words still control them.
+Simply Cash was a mobile wallet that began as a Bitcoin Cash wallet and became BSV-only in late 2018. Development stopped in August 2020 (last version 0.0.99). The app depends on its own server (`ws.simply.cash:3000`) to load balances and send. On 2026-10-02 that server was not responding, so the app could not do either; that is why this tool was written. On 2026-10-31 the server was accepting connections again. This tool does not use that server, so it works either way. The coins were never inside the app. They are on the BSV blockchain, and the 12 words still control them.
 
 ## How Simply Cash derived keys
 
